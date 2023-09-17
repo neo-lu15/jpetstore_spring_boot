@@ -16,12 +16,12 @@
 
 FROM eclipse-temurin:17-jdk-jammy
 WORKDIR /jpetstore
-#COPY . .
-COPY .mvn/ .mvn
-COPY mvnw mvnw.cmd pom.xml owasp-dependency-check-suppression.xml license.txt manifest.yml ./
-COPY ./src ./src
-COPY ./images ./images
-COPY ./target ./target
+COPY . .
+#COPY .mvn/ .mvn
+#COPY mvnw mvnw.cmd pom.xml owasp-dependency-check-suppression.xml license.txt manifest.yml ./
+#COPY ./src ./src
+#COPY ./images ./images
+#COPY ./target ./target
 RUN ./mvnw clean package -DskipTests=true
 CMD [ "java", "-jar", "target/mybatis-spring-boot-jpetstore-2.0.0-SNAPSHOT.jar"]
 # RUN ./mvnw clean spring-boot:run
