@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  
-  database: 
+
+  database:
     container_name: database
     build: database
     ports:
@@ -14,7 +14,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
-  
+
   app:
     container_name: app
     build: app
@@ -25,54 +25,9 @@ services:
     depends_on:
       - database
 
-  keycloak:
-    container_name: keycloak
-    build: keycloak
-    ports:
-      - 8180:8080
-    networks:
-      - jpetstore
-  
-        #  openldap_service:
-        # extends:
-        #file: ./openldap/docker-compose.yml
-        #services: 
-        #openldap
-        # phpldapadmin
-        # networks:
-        #- jpetstore
-  openldap:
-    container_name: openldap
-    image: osixia/openldap:latest
-    ports:
-      - 389:389
-        # volumes:
-        # - ~/ldap/backup:/data/backup
-        # - ~/ldap/data:/var/lib/openldap
-        #- ~/ldap/config:/etc/openldap/slapd.d
-        #- ~/ldap/certs:/assets/slapd/certs
-        #command: [--copy-service,  --loglevel, debug]
-    environment:
-      - LDAP_ORGANISATION="Jpetstore"
-      - LDAP_DOMAIN=example.org
-    networks:
-      - jpetstore
 
-  phpldapadmin:
-    container_name: phpldapadmin
-    image: osixia/phpldapadmin:latest
-    ports:
-      - 6443:443
-    environment:
-      #- PHPLDAPADMIN_HTTPS="false"
-      - PHPLDAPADMIN_LDAP_HOSTS=openldap
-        #links:
-        #- openldap
-    depends_on:
-      - openldap
-    networks:
-      - jpetstore
+
 networks:
- jpetstore:
-
+  jpetstore:
+    name: jpet      
 
